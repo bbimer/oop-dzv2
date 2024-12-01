@@ -2,6 +2,29 @@
 #include <iostream>
 using namespace std;
 
+College::College(College&& other) noexcept
+    : NAME(other.NAME), cnt(other.cnt) {
+
+    other.NAME = nullptr;
+    other.cnt = nullptr;
+}
+
+College& College::operator=(College&& other) noexcept {
+    if (this != &other)
+    {
+        delete[] NAME;
+        delete[] cnt;
+
+        NAME = other.NAME;
+		cnt = other.cnt;
+
+        other.NAME = nullptr;
+        other.cnt = nullptr;
+    }
+    return *this;
+}
+
+
 void College::setName(const char* name1) {
 	delete[] NAME;
 	size_t size1 = strlen(name1) + 1;
@@ -23,6 +46,6 @@ void College::setContact(const char* contact1) {
 }
 
 void College::print() const {
-	cout << endl << "College contact: " << cnt << endl;
-	cout << "College name: " << NAME << endl;
+	cout << endl << "College contact: " << (cnt ? cnt : "none") << endl;
+	cout << "College name: " << (NAME ? NAME : "none") << endl;
 }

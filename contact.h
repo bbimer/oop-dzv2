@@ -14,6 +14,10 @@ public:
         delete[] cntr;
     }
 
+    Contact(Contact&& other) noexcept;
+
+    Contact& operator=(Contact&& other) noexcept;
+
     void setPhoneNumber(const char* num);
     void setPlace(const char* place);
     void setCountry(const char* country);

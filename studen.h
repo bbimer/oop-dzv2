@@ -17,6 +17,10 @@ public:
 		delete[] college;
 	}
 
+	Student(Student&& other) noexcept;
+
+	Student& operator=(Student&& other) noexcept;
+
 	void setPIB(const char* pib);
 	void setDateOfBirth(const char* date);
 	void setContact(const char* number);

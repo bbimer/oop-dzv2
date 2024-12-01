@@ -4,6 +4,36 @@
 using namespace std;
 
 
+Student::Student(Student&& other) noexcept
+    : PIB(other.PIB), dateOfBirth(other.dateOfBirth), contact(other.contact), college(other.college) {
+
+    other.PIB = nullptr;
+    other.dateOfBirth = nullptr;
+    other.contact = nullptr;
+    other.college = nullptr;
+}
+
+Student& Student::operator=(Student&& other) noexcept {
+    if (this != &other)
+    {
+        delete[] PIB;
+        delete[] dateOfBirth;
+        delete[] contact;
+        delete[] college;
+
+        PIB = other.PIB;
+        dateOfBirth = other.dateOfBirth;
+        contact = other.contact;
+        college = other.college;
+
+        other.PIB = nullptr;
+        other.dateOfBirth = nullptr;
+        other.contact = nullptr;
+        other.college = nullptr;
+    }
+    return *this;
+}
+
 void Student::setPIB(const char* pib) {
     delete[] PIB;
     size_t size1 = strlen(pib) + 1;
@@ -46,9 +76,8 @@ void Student::setCollege(const char* name) {
 
 
 void Student::print() const {
-    cout << endl << "PIB: " << PIB << endl;
-    cout << "Date of birth: " << dateOfBirth << endl;
-    cout << "contacts: " << contact << endl;
-    cout << "college: " << college << endl;
+    cout << endl << "PIB: " << (PIB ? PIB : "none") << endl;
+    cout << "Date of birth: " << (dateOfBirth ? dateOfBirth : "none") << endl;
+    cout << "Contacts: " << (contact ? contact : "none") << endl;
+    cout << "College: " << (college ? college : "none") << endl;
 }
-

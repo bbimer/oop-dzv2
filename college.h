@@ -13,6 +13,10 @@ public:
         delete[] cnt;
     }
 
+    College(College&& other) noexcept;
+
+    College& operator=(College&& other) noexcept;
+
     void setContact(const char* contact1);
     void setName(const char* name1);
 
